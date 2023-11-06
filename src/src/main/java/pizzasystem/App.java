@@ -16,6 +16,8 @@ public class App extends Application {
 
     private static Scene scene;
     static ArrayList<String> people = new ArrayList<>();
+    static ArrayList<String> passwords = new ArrayList<>();
+    static ArrayList<String> tempCart = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {

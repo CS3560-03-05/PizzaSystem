@@ -12,6 +12,7 @@
       <Label text="Welcome to Pizza Ordering App"/>
       <HBox spacing="10.0">
          <Button fx:id="primaryButton" text="Register" onAction="#switchToRegister"/>
+         <Button text="Login" onAction="#goToLogin"/>
       </HBox>
    </children>
    <padding>

@@ -20,6 +20,9 @@ public class RegisterController {
     private TextField emailField;
 
     @FXML
+    private TextField passwordField;
+
+    @FXML
     private Label statusLabel;
 
 
@@ -31,6 +34,7 @@ public class RegisterController {
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         String email = emailField.getText();
+        String password = passwordField.getText();
         String message ="";
         if(!email.contains("@"))
         {
@@ -42,10 +46,12 @@ public class RegisterController {
                 + "First Name: " + firstName + "\n"
                 + "Last Name: " + lastName + "\n"
                 + "Email: " + email;
+            App.people.add(email);
+            App.passwords.add(password);
         }
         else
         {
-            message = "You already have an account";
+            message = "You already have an account please login.";
         }
 
         // Display a message or perform any other post-registration actions
@@ -55,5 +61,11 @@ public class RegisterController {
     @FXML
     private void goBackToHome(ActionEvent event) throws IOException {
          App.setRoot("home"); // Load the home page layout again
+    }
+
+    @FXML
+    private void goToLogin(ActionEvent event) throws IOException
+    {
+        App.setRoot("login");
     }
 }

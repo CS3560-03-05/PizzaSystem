@@ -13,9 +13,11 @@
         <TextField fx:id="firstNameField" promptText="First Name" />
         <TextField fx:id="lastNameField" promptText="Last Name" />
         <TextField fx:id="emailField" promptText="Email" />
+        <TextField fx:id="passwordField" promptText="Password" />
         <Button text="Register" onAction="#registerUser" />
         <Label fx:id="statusLabel" />
         <Button text="Go Back" onAction="#goBackToHome" />
+        <Button text="Login" onAction="#goToLogin" />
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

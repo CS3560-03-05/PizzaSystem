@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.collections.ObservableList?>
+<?import java.lang.String?>
+
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pizzasystem.buildController">
+    <children>
+        <Label text="Build Your Own Pizza" />
+        
+        <Label text="Select Crust:" />
+        <ChoiceBox fx:id="crustChoiceBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Thin Crust" />
+                    <String fx:value="Pan Crust" />
+                    <String fx:value="Stuffed Crust" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        
+        <Label text="Select Toppings:" />
+        <CheckBox text="Pepperoni" fx:id="pepperoniCheckBox" />
+        <CheckBox text="Mushrooms" fx:id="mushroomsCheckBox" />
+        <CheckBox text="Olives" fx:id="olivesCheckBox" />
+        
+        <Label text="Select Size:" />
+        <ChoiceBox fx:id="sizeChoiceBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Small" />
+                    <String fx:value="Medium" />
+                    <String fx:value="Large" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <Button text="Add to Cart" onAction="#addToCart" />
+        <Button text="Go Back" onAction="#goBackToHome"/>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</VBox>

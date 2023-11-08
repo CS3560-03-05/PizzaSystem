@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pizzasystem.preMadeController">
+   <children>
+      <Label text="Choose a Pre-Made Pizza"/>
+      <Button text="Margherita" onAction="#orderMargherita"/>
+      <Button text="Pepperoni" onAction="#orderPepperoni"/>
+      <Button text="Vegetarian" onAction="#orderVegetarian"/>
+      <Button text="Hawaiian" onAction="#orderHawaiian"/>
+      <Button text="Meat Lovers" onAction="#orderMeatLovers"/>
+      <Label fx:id="status"/>
+      <Button text="Go Back" onAction="#goBackToHome" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

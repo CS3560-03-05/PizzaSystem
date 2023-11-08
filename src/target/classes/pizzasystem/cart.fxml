@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pizzasystem.cartController">
+    <children>
+        <Label text="Shopping Cart" />
+        <TableView fx:id="cartTable" prefWidth="400.0" prefHeight="200.0">
+            <columns>
+                <TableColumn text="Item" prefWidth="200">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="item" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Price" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Quantity" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="quantity" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <HBox spacing="10.0">
+            <Label text="Total:" />
+            <Label fx:id="totalLabel" />
+        </HBox>
+        <Label fx:id= "checkoutMessage" />
+        <Button text="Checkout" onAction="#goToCheckout" />
+        <Button text="Go Back" onAction="#goBackToHome" />
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>

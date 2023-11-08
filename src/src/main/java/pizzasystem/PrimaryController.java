@@ -21,4 +21,16 @@ public class PrimaryController {
     {
         App.setRoot("login");
     }
+
+    @FXML
+    private void goToCart() throws IOException
+    {
+        App.setRoot("cart");
+    }
+
+    @FXML
+    private void goToOrder() throws IOException
+    {
+        App.setRoot("order");
+    }
 }

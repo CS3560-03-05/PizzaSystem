@@ -34,7 +34,6 @@ public class LoginController
         else if(App.people.contains(email) && App.passwords.contains(password))
         {
             message = "Logged in!";
-            App.tempCart.add("7");
         }
         else
         {

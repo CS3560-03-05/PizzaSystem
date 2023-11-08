@@ -17,11 +17,12 @@ public class App extends Application {
     private static Scene scene;
     static ArrayList<String> people = new ArrayList<>();
     static ArrayList<String> passwords = new ArrayList<>();
-    static ArrayList<String> tempCart = new ArrayList<>();
+    private static CartService cartService = new CartService();
+
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("home"), 640, 480);
+        scene = new Scene(loadFXML("home"), 520, 420);
         stage.setScene(scene);
         stage.show();
     }
@@ -37,6 +38,11 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static CartService getServiceCart()
+    {
+        return cartService;
     }
 
 }

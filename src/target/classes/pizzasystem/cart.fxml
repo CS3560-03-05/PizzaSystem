@@ -30,6 +30,11 @@
                         <PropertyValueFactory property="quantity" />
                     </cellValueFactory>
                 </TableColumn>
+                <TableColumn fx:id="removeColumn" text="Remove" prefWidth="75">
+                    <cellFactory>
+                        <PropertyValueFactory property="someProperty" />
+                    </cellFactory>
+                </TableColumn>
             </columns>
         </TableView>
         <HBox spacing="10.0">

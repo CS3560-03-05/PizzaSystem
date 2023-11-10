@@ -30,6 +30,15 @@ public class buildController
     private CheckBox olivesCheckBox;
 
     @FXML
+    private CheckBox sausageCheckBox;
+
+    @FXML
+    private CheckBox bPepperCheckBox;
+
+    @FXML
+    private CheckBox baconCheckBox;
+
+    @FXML
     private Label sizeLabel;
 
     @FXML
@@ -52,6 +61,9 @@ public class buildController
         boolean hasPepperoni = pepperoniCheckBox.isSelected();
         boolean hasMushrooms = mushroomsCheckBox.isSelected();
         boolean hasOlives = olivesCheckBox.isSelected();
+        boolean hasSausage = sausageCheckBox.isSelected();
+        boolean hasBacon = baconCheckBox.isSelected();
+        boolean hasBPepper = bPepperCheckBox.isSelected();
 
         //String[] customPizza = [selectedCrust, selectedSize, hasPepperoni, hasMushrooms, hasOlives]
 

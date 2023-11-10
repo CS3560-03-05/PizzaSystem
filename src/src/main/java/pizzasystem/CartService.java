@@ -11,13 +11,37 @@ public class CartService
         return cartItems;   
     }
 
-    public void addToCart(CartItem item) {
-        cartItems.add(item);
-    }
-
-    public void clear()
+    public void addToCart(CartItem item) 
     {
-        cartItems.clear();
+        boolean flag =false;
+        for(int i = 0; i < cartItems.size(); i++)
+        {
+            if(cartItems.get(i).getItem().equals(item.getItem()))
+            {
+                flag =true;
+                cartItems.get(i).setQuantity(cartItems.get(i).getQuantity()+1);
+            }
+        }
+        if(!flag)
+        {
+            cartItems.add(item);
+        }
     }
 
+    public void removeFromCart(CartItem item)
+    {
+        boolean flag =false;
+        for(int i = 0; i < cartItems.size(); i++)
+        {
+            if(cartItems.get(i).getQuantity() > 1)
+            {
+                flag =true;
+                cartItems.get(i).setQuantity(cartItems.get(i).getQuantity()-1);
+            }
+        }
+        if(!flag)
+        {
+            cartItems.remove(item);
+        }
+    }
 }

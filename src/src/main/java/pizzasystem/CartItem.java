@@ -4,8 +4,8 @@ public class CartItem           //temporary class for testing remove this class 
 {
     private String item;
     private String price;
-    private String quantity;
-    public CartItem(String item, String price, String quantity) {
+    private int quantity;
+    public CartItem(String item, String price, int quantity) {
         this.item = item;
         this.price = price;
         this.quantity = quantity;
@@ -19,7 +19,12 @@ public class CartItem           //temporary class for testing remove this class 
         return price;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(int str)
+    {
+        this.quantity = str;
     }
 }

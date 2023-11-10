@@ -2,12 +2,9 @@ package pizzasystem;
 
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 
 public class preMadeController 
 {
@@ -17,20 +14,10 @@ public class preMadeController
     private Label status;
     
     @FXML
-    private void orderMargherita(ActionEvent event) {
-        CartItem cartItem = new CartItem("Margherita", "6", "1");
+    private void orderChickenBbq(ActionEvent event) {
+        CartItem cartItem = new CartItem("ChickenBBQ", "6", 1);
         cartService.addToCart(cartItem);
         status.setText("Added to cart");
-    }
-
-    @FXML
-    private void orderPepperoni(ActionEvent event) {
-        // Handle the Pepperoni pizza order here
-    }
-
-    @FXML
-    private void orderVegetarian(ActionEvent event) {
-        // Handle the Vegetarian pizza order here
     }
 
     @FXML

@@ -1,0 +1,2 @@
+CREATE DATABASE pizza_mobile_app;
+USE pizza_mobile_app;

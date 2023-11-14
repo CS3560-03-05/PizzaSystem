@@ -1,0 +1,59 @@
+-- Create Customer table
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Address VARCHAR(255),
+    Email VARCHAR(255) UNIQUE,
+    Password VARCHAR(255),
+    Phone VARCHAR(20)
+);
+
+-- Create Pizza table
+CREATE TABLE Pizza (
+    PizzaID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(255),
+    Description TEXT,
+    Price DECIMAL(10, 2)
+);
+
+-- Create Toppings table
+CREATE TABLE Toppings (
+    ToppingID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(255),
+    Price DECIMAL(10, 2)
+);
+
+-- Create Order table
+CREATE TABLE Order (
+    OrderID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT,
+	PizzaID INT,
+	Quantity INT,
+	DeliveryAddress VARCHAR(255),
+    PaymentMethod VARCHAR(50), -- Consider additional columns for payment details if needed
+    TotalAmount DECIMAL(10, 2),
+    OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    FOREIGN KEY (PizzaID) REFERENCES Pizza(PizzaID)
+);
+
+-- Create OrderToppings table to represent the many-to-many relationship between Order and Toppings
+CREATE TABLE OrderToppings (
+    OrderID INT,
+    ToppingID INT,
+    PRIMARY KEY (OrderID, ToppingID),
+    FOREIGN KEY (OrderID) REFERENCES Order(OrderID),
+    FOREIGN KEY (ToppingID) REFERENCES Toppings(ToppingID)
+);
+
+-- Create OrderDetails table to represent the items in each order
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY AUTO_INCREMENT,
+    OrderID INT,
+    PizzaID INT,
+    Quantity INT,
+    Subtotal DECIMAL(10, 2),
+    FOREIGN KEY (OrderID) REFERENCES Order(OrderID),
+    FOREIGN KEY (PizzaID) REFERENCES Pizza(PizzaID)
+);

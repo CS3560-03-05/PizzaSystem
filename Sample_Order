@@ -1,0 +1,21 @@
+-- Sample Customer
+INSERT INTO Customer (Name, Address, Email, Phone) VALUES
+('John Doe', '123 Main St', 'john.doe@email.com', '555-1234');
+
+-- Sample Pizza
+INSERT INTO Pizza (Name, Description, Price) VALUES
+('Margherita', 'Classic tomato, mozzarella, basil', 9.99);
+
+-- Sample Toppings
+INSERT INTO Toppings (Name, Price) VALUES
+('Pepperoni', 1.50),
+('Mushrooms', 1.00);
+
+-- Sample Order
+INSERT INTO OrderTable (CustomerID, PizzaID, Quantity, TotalAmount, OrderDate) VALUES
+(1, 1, 2, 19.98, CURRENT_DATE);
+
+-- Sample Order_Toppings
+INSERT INTO Order_Toppings (OrderID, ToppingID) VALUES
+(1, 1),
+(1, 2);

@@ -13,7 +13,7 @@ public class RegisterController {
     private TextField firstNameField;
 
     @FXML
-    private TextField lastNameField;
+    private TextField lastNameField;                //creating fields to register
 
     @FXML
     private TextField emailField;
@@ -27,22 +27,21 @@ public class RegisterController {
 
     @FXML
     private void registerUser(ActionEvent event) {
-        // Registration logic here
-        // After registration, set the flag to true if you want to go back to the home page
+
        
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
-        String email = emailField.getText();
+        String email = emailField.getText();                        //gets data from fields
         String password = passwordField.getText();
         String message ="";
         if(!email.contains("@"))
         {
-            message = "Invalid input";
+            message = "Invalid input";          //checks if valid email
         }
         else if(!App.people.contains(email))
         {
             message = "Registration successful:\n"
-                + "First Name: " + firstName + "\n"
+                + "First Name: " + firstName + "\n"         //sees if email in db (App.people temporary just for testing)
                 + "Last Name: " + lastName + "\n"
                 + "Email: " + email;
             App.people.add(email);

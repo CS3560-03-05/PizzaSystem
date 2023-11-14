@@ -14,26 +14,25 @@ public class LoginController
     private TextField emailField;
 
     @FXML
-    private TextField passwordField;
+    private TextField passwordField;            //fields for login
 
     @FXML
     private Label statusLabel;
 
         @FXML
     private void loginUser(ActionEvent event) {
-        // Registration logic here
-        // After registration, set the flag to true if you want to go back to the home page
+
        
         String email = emailField.getText();
-        String password = passwordField.getText();
+        String password = passwordField.getText();                  
         String message ="";
         if(!email.contains("@"))
         {
-            message = "Invalid input";
+            message = "Invalid input";              //checks for valid email
         }
-        else if(App.people.contains(email) && App.passwords.contains(password))
+        else if(App.people.contains(email) && App.passwords.contains(password))         
         {
-            message = "Logged in!";
+            message = "Logged in!";                                         //logic is temporary used for testing
         }
         else
         {

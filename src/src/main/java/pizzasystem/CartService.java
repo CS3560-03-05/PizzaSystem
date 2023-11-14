@@ -1,7 +1,7 @@
 package pizzasystem;
 
 import javafx.collections.FXCollections;            //Helps share data between prebuild, buildyourown, and the cart
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableList;           ///this is what we want our database to do. Update information, read, and write so other files can use the data.
 
 public class CartService 
 {
@@ -16,7 +16,7 @@ public class CartService
         boolean flag =false;
         for(int i = 0; i < cartItems.size(); i++)
         {
-            if(cartItems.get(i).getItem().equals(item.getItem()))
+            if(cartItems.get(i).getItem().equals(item.getItem()))                       
             {
                 flag =true;
                 cartItems.get(i).setQuantity(cartItems.get(i).getQuantity()+1);

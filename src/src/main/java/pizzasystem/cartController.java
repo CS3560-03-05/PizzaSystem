@@ -17,25 +17,25 @@ public class cartController
     private CartService cartService = App.getServiceCart();
 
     @FXML
-    private TableView<CartItem> cartTable;
+    private TableView<CartItem> cartTable;              //table to display items in cart
     
     @FXML
-    private Label totalLabel;
+    private Label totalLabel;                       //fxml items needed for page
 
     @FXML
     private Label checkoutMessage;
 
     @FXML
-    private TableColumn<CartItem, Void> removeColumn;
+    private TableColumn<CartItem, Void> removeColumn;               //column in cartable for remove button
 
     public void initialize() {
            removeColumn.setCellFactory(column -> {
                 return new TableCell<CartItem, Void>() {
-                    private final Button removeButton = new Button("Remove");
+                    private final Button removeButton = new Button("Remove");                   //puts a Remove button in each row of the remove column
             
                     {
                         removeButton.setOnAction(event -> {
-                            CartItem item = getTableView().getItems().get(getIndex());
+                            CartItem item = getTableView().getItems().get(getIndex());          //action to be done when pressed
                             removeItemFromCart(item);
                         });
                     }
@@ -44,7 +44,7 @@ public class cartController
                     protected void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
-                            setGraphic(null);
+                            setGraphic(null);                                       //handle updating the button depening on conditions
                         } else {
                             setGraphic(removeButton);
                         }
@@ -59,32 +59,32 @@ public class cartController
             TableColumn<CartItem, String> priceColumn = new TableColumn<>("Price");
             priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-            TableColumn<CartItem, String> quantityColumn = new TableColumn<>("Quantity");               //CartItem is temporary for testing
+            TableColumn<CartItem, String> quantityColumn = new TableColumn<>("Quantity");               //initalize columns
             quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
                     
             cartTable.getColumns().addAll(itemColumn, priceColumn, quantityColumn, removeColumn);
         }
-        updateCart();
-        totalLabel.setText("$"+calculateTotal());
+        updateCart();                                                       
+        totalLabel.setText("$"+calculateTotal());                       
     }
 
     @FXML
     public void updateCart() 
-    {
-        cartTable.setItems(cartService.getCartItems());
+    {   
+        cartTable.setItems(cartService.getCartItems());             //set items of cart 
     }
     
 
     public void goToCheckout()
     {
-        checkoutMessage.setText("Order Confirmed!");
+        checkoutMessage.setText("Order Confirmed!");                //goes to checkout in progress
     }
 
     private double calculateTotal()
     {
         double total = 0.0;
 
-        for(CartItem item : cartTable.getItems())
+        for(CartItem item : cartTable.getItems())               //total money
         {
             total+= Double.parseDouble(item.getPrice().substring(0)) * (item.getQuantity());
         }
@@ -93,7 +93,7 @@ public class cartController
     }
 
     private void removeItemFromCart(CartItem item) {
-        cartService.removeFromCart(item);
+        cartService.removeFromCart(item);                                   //remove item in the cart
         updateCart();
         initialize();
     }

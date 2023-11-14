@@ -8,14 +8,14 @@ import javafx.scene.control.Label;
 
 public class preMadeController 
 {
-    private CartService cartService = App.getServiceCart();
+    private CartService cartService = App.getServiceCart();             //temporary used for testing 
 
     @FXML
-    private Label status;
+    private Label status;                                                       
     
     @FXML
     private void orderChickenBbq(ActionEvent event) {
-        CartItem cartItem = new CartItem("ChickenBBQ", "6", 1);
+        CartItem cartItem = new CartItem("ChickenBBQ", "6", 1);                 //Creates all the pizzas
         cartService.addToCart(cartItem);
         status.setText("Added to cart");
     }

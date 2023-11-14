@@ -9,11 +9,11 @@ public class orderController
 {
     @FXML
     private void buildPizza(ActionEvent event) throws IOException {
-        App.setRoot("build"); 
+        App.setRoot("build");                                               //Presents build your own pizza option
     }
 
     @FXML
-    private void viewPrePizzas(ActionEvent event) throws IOException {
+    private void viewPrePizzas(ActionEvent event) throws IOException {                  //presents order prebuilt pizza option
         App.setRoot("preBuild"); 
     }
 

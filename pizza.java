@@ -79,6 +79,6 @@ public class pizza{
                 break;
         }
 
-        return s + name + "Pizza";
+        return s + " " + name + " Pizza";
     }
 }

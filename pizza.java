@@ -33,7 +33,7 @@ public class pizza{
         description = updateDescription(s, name);
     }
 
-    public double updatePrice(char size, String name){
+    private double updatePrice(char size, String name){
         double sizePrice = 0;
         double toppingsPrice = 0;
 
@@ -64,7 +64,7 @@ public class pizza{
         return sizePrice + toppingsPrice;
     }
 
-    public String updateDescription(char size, String name){
+    private String updateDescription(char size, String name){
         String s = "";
 
         switch (size) {

@@ -7,6 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +42,28 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pizza_mobile_app", "root", "CS3650");
+        Statement stmt=con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM pizza_mobile_app.pizza;");
+        ResultSetMetaData rsmd = rs.getMetaData();
+
+        int columnsNumber = rsmd.getColumnCount();              
+        
+        // Iterate through the data in the result set and display it. 
+        
+        while (rs.next()) {
+        //Print one row          
+        for(int i = 1 ; i <= columnsNumber; i++){
+        
+              System.out.print(rs.getString(i) + " "); //Print one element of a row
+        
+        }
+        
+          System.out.println();//Move to the next line to print the next row.           
+        
+            }
         launch();
     }
 

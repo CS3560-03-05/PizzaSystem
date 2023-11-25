@@ -43,27 +43,27 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pizza_mobile_app", "root", "CS3650");
-        Statement stmt=con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM pizza_mobile_app.pizza;");
-        ResultSetMetaData rsmd = rs.getMetaData();
+        // Class.forName("com.mysql.cj.jdbc.Driver");
+        // Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pizza_mobile_app", "root", "CS3650");
+        // Statement stmt=con.createStatement();
+        // ResultSet rs = stmt.executeQuery("SELECT * FROM pizza_mobile_app.pizza;");
+        // ResultSetMetaData rsmd = rs.getMetaData();
 
-        int columnsNumber = rsmd.getColumnCount();              
+        // int columnsNumber = rsmd.getColumnCount();              
         
-        // Iterate through the data in the result set and display it. 
+        // // Iterate through the data in the result set and display it. 
         
-        while (rs.next()) {
-        //Print one row          
-        for(int i = 1 ; i <= columnsNumber; i++){
+        // while (rs.next()) {
+        // //Print one row          
+        // for(int i = 1 ; i <= columnsNumber; i++){
         
-              System.out.print(rs.getString(i) + " "); //Print one element of a row
+        //       System.out.print(rs.getString(i) + " "); //Print one element of a row
         
-        }
+        // }
         
-          System.out.println();//Move to the next line to print the next row.           
+        //   System.out.println();//Move to the next line to print the next row.           
         
-            }
+        //     }
         launch();
     }
 

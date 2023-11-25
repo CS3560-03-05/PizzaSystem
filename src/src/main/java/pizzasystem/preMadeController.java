@@ -11,12 +11,12 @@ public class preMadeController
     private CartService cartService = App.getServiceCart();             //temporary used for testing 
 
     @FXML
-    private Label status;                                                       
+    private Label status;                                                                 //make sure customer is not null
     
     @FXML
     private void orderChickenBbq(ActionEvent event) {
-        CartItem cartItem = new CartItem("ChickenBBQ", "6", 1);                 //Creates all the pizzas
-        cartService.addToCart(cartItem);
+        CartItem cartItem = new CartItem("ChickenBBQ", "6", 1);                 //Add new entry to order table with App.getCustomer()'s id  and bbqchicken's pizza id
+        cartService.addToCart(cartItem);                                                    //Check if pizza id exist in customer's orders if it just update quanitty
         status.setText("Added to cart");
     }
 

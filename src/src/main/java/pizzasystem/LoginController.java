@@ -19,7 +19,7 @@ public class LoginController
     @FXML
     private Label statusLabel;
 
-        @FXML
+    @FXML
     private void loginUser(ActionEvent event) {
 
        
@@ -32,11 +32,12 @@ public class LoginController
         }
         else if(App.people.contains(email) && App.passwords.contains(password))         
         {
-            message = "Logged in!";                                         //logic is temporary used for testing
+            message = "Logged in!";                                         //logic is temporary used for testing       //look up email and see if it matches password in db in customer table
+                                                                                                                        //set App.setCustomer to current customer's id(name or email)
         }
         else
         {
-            message = "Account does not exist please register an account.";
+            message = "Account does not exist please register an account.";             
         }
 
         // Display a message or perform any other post-registration actions

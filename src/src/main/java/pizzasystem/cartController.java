@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -70,14 +73,29 @@ public class cartController
 
     @FXML
     public void updateCart() 
-    {   
-        cartTable.setItems(cartService.getCartItems());             //set items of cart 
+    {                                                                                             //make ObservableArray here
+        cartTable.setItems(cartService.getCartItems());             //set items of cart         (iterate rows of order table where App.getCustomer matches customerid in table. Create new cartitem for each row and add cartitem to obserbable array  )
     }
     
 
-    public void goToCheckout()
+    public void goToCheckout() throws IOException
     {
-        checkoutMessage.setText("Order Confirmed!");                //goes to checkout in progress
+        if(cartTable.getItems().size() >= 1)
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("placeOrder.fxml"));
+            Dialog<Button> dialog = new Dialog<>();
+            dialog.setTitle("Payment Information");
+            dialog.getDialogPane().setContent(loader.load());
+
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+
+            dialog.showAndWait(); 
+        }
+        else
+        {
+            checkoutMessage.setText("Cart Empty!");
+        }
+
     }
 
     private double calculateTotal()
@@ -93,9 +111,9 @@ public class cartController
     }
 
     private void removeItemFromCart(CartItem item) {
-        cartService.removeFromCart(item);                                   //remove item in the cart
-        updateCart();
-        initialize();
+        cartService.removeFromCart(item);                                   //remove item in the cart   
+        updateCart();                                                   // check if quantity is >1 then just update quantity. Also, get the order using the index remove from database.
+        initialize();                                                       
     }
 
     @FXML

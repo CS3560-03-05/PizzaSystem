@@ -58,11 +58,11 @@ public class buildController
         // Retrieve user selections
         String selectedCrust = crustChoiceBox.getValue();
         String selectedSize = sizeChoiceBox.getValue();
-        boolean hasPepperoni = pepperoniCheckBox.isSelected();
+        boolean hasPepperoni = pepperoniCheckBox.isSelected();                          //make sure customer is not null
         boolean hasMushrooms = mushroomsCheckBox.isSelected();
         boolean hasOlives = olivesCheckBox.isSelected();
         boolean hasSausage = sausageCheckBox.isSelected();
-        boolean hasBacon = baconCheckBox.isSelected();
+        boolean hasBacon = baconCheckBox.isSelected();                                  //same concept as premade 
         boolean hasBPepper = bPepperCheckBox.isSelected();
 
         //String[] customPizza = [selectedCrust, selectedSize, hasPepperoni, hasMushrooms, hasOlives]

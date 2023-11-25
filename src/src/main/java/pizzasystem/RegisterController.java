@@ -41,8 +41,8 @@ public class RegisterController {
         else if(!App.people.contains(email))
         {
             message = "Registration successful:\n"
-                + "First Name: " + firstName + "\n"         //sees if email in db (App.people temporary just for testing)
-                + "Last Name: " + lastName + "\n"
+                + "First Name: " + firstName + "\n"         //sees if email in db 
+                + "Last Name: " + lastName + "\n"           //create new customer in customer table
                 + "Email: " + email;
             App.people.add(email);
             App.passwords.add(password);

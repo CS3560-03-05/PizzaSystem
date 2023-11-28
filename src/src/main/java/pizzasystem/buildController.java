@@ -1,6 +1,7 @@
 package pizzasystem;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -12,7 +13,8 @@ import javafx.scene.control.Label;
 
 public class buildController 
 {
-    private Label crustLabel;
+    @FXML
+    private Label statusLabel;
 
     @FXML
     private ChoiceBox<String> crustChoiceBox;
@@ -54,7 +56,7 @@ public class buildController
     }
 
     @FXML
-    private void addToCart(ActionEvent event) {
+    private void addCustom(ActionEvent event) throws SQLException {
         // Retrieve user selections
         String selectedCrust = crustChoiceBox.getValue();
         String selectedSize = sizeChoiceBox.getValue();
@@ -65,10 +67,55 @@ public class buildController
         boolean hasBacon = baconCheckBox.isSelected();                                  //same concept as premade 
         boolean hasBPepper = bPepperCheckBox.isSelected();
 
-        //String[] customPizza = [selectedCrust, selectedSize, hasPepperoni, hasMushrooms, hasOlives]
-
-
-        //System.out.println("Custom pizza added to the cart: " + customPizza.toString());
+        String pizzaDesc = "";
+        if(hasPepperoni)
+        {
+            pizzaDesc+= "Pepperoni, ";
+        }
+        if(hasMushrooms)
+        {
+            pizzaDesc+="Mushrooms, ";
+        }
+        if(hasOlives)
+        {
+            pizzaDesc+="Olives, ";
+        }
+        if(hasSausage)
+        {
+            pizzaDesc+="Sausage, ";
+        }
+        if(hasBacon)
+        {
+            pizzaDesc+="Bacon, ";
+        }
+        if(hasBPepper)
+        {
+            pizzaDesc+="Bellpepper, ";
+        }
+        pizzaDesc += selectedCrust+", ";
+        pizzaDesc  += selectedSize;
+        double price = 0;
+        if(selectedSize.equals("Small"))
+        {
+            price = 9.00;
+        }
+        else if(selectedSize.equals("Medium"))
+        {
+            price = 11.00;
+        }
+        else if(selectedSize.equals("Large"))
+        {
+            price = 12.50;
+        }
+        if(price >0 )
+        {
+            Customer.addCustomPizza(price, pizzaDesc);
+            statusLabel.setText("Added to Cart!");
+        }
+        else
+        {
+            statusLabel.setText("Invalid Pizza");
+        }
     }
 
     @FXML

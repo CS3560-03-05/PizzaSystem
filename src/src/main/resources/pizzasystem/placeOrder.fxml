@@ -11,5 +11,5 @@
     <Label text="Enter Payment Information:"/>
     <TextField fx:id="paymentTextField" promptText="Card Number"/>
     <Label fx:id="checkoutMessage" />
-    <Button text="Place Order" onAction="#placeOrder"/>
+    <Button fx:id="placeOrderButton" text="Place Order" onAction="#placeOrder"/>
 </VBox>

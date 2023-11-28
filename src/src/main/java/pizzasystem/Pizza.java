@@ -23,7 +23,7 @@ public class Pizza
         }
     }
 
-        public static int getPizzaPrice(int index) throws SQLException
+    public static int getPizzaPrice(int index) throws SQLException
     {
         String query = "SELECT Price FROM pizza WHERE pizzaID = ?";
         PreparedStatement stmnt = App.getConnector().prepareStatement(query);
@@ -32,6 +32,22 @@ public class Pizza
         if(rs.next())
         {
             return rs.getInt("Price");
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public static int getPizzaId(String name) throws SQLException
+    {
+        String query = "SELECT pizzaId FROM pizza WHERE NAme = ?";
+        PreparedStatement stmnt = App.getConnector().prepareStatement(query);
+        stmnt.setString(1, name);
+        ResultSet rs =stmnt.executeQuery();
+        if(rs.next())
+        {
+            return rs.getInt("pizzaId");
         }
         else
         {

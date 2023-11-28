@@ -23,6 +23,7 @@
                     </ImageView>
                 </graphic>
             </Button>
+            <Label fx:id = "statusLabel"/>
         </HBox>
         <Label text="Welcome to Pizza Ordering App"/>
         <ImageView fitWidth="150.0" fitHeight="150.0">

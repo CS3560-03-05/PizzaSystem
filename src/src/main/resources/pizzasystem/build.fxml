@@ -48,7 +48,8 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Button text="Add to Cart" onAction="#addToCart" />
+        <Label fx:id="statusLabel"/>
+        <Button text="Add to Cart" onAction="#addCustom" />
         <Button text="Go Back" onAction="#goBackToHome"/>
     </children>
     <padding>

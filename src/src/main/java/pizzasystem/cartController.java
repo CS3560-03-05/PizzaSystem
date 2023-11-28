@@ -131,11 +131,45 @@ public class cartController
         return total;
     }
 
-    private void removeItemFromCart(CartItem item) throws SQLException {
-        Customer.removeFromCart(item);                                   //remove item in the cart  
-        Customer.removeFromTable(item); 
-        updateCart();                                                   // check if quantity is >1 then just update quantity. Also, get the order using the index remove from database.
-        initialize();                                                       
+    private void removeItemFromCart(CartItem item) throws SQLException 
+    {
+        String updateQuery = "UPDATE ordertable SET quantity = quantity - 1 WHERE pizzaId = ? AND customerId = ?";
+        String deleteQuery = "DELETE FROM ordertable WHERE pizzaId = ? AND customerId = ?";
+        String query = "SELECT quantity FROM ordertable WHERE pizzaId = ? AND customerId = ?";
+
+        PreparedStatement updateStatement = App.getConnector().prepareStatement(updateQuery);
+        PreparedStatement deleteStatement = App.getConnector().prepareStatement(deleteQuery);
+        PreparedStatement quantity = App.getConnector().prepareStatement(query);
+
+        int pizzaId = Pizza.getPizzaId(item.getItem());
+        int customerId = App.getCustomer().getIndex(); // Assuming getIndex() returns the customer ID
+        quantity.setInt(1, pizzaId);
+        quantity.setInt(2, customerId);
+        ResultSet qrs = quantity.executeQuery();
+        qrs.next();
+        int currentQuantity = qrs.getInt("Quantity");
+
+        if (currentQuantity > 1) 
+        {
+            for(int i = 0; i < cartTable.getItems().size(); i++)
+            {
+                if(cartTable.getItems().get(i).getQuantity() > 1)
+                {
+                    cartTable.getItems().get(i).setQuantity(currentQuantity-1);
+                }
+            }            
+            updateStatement.setInt(1, pizzaId);
+            updateStatement.setInt(2, customerId);
+            updateStatement.executeUpdate();
+        } 
+        else 
+        {
+            cartTable.getItems().remove(item);
+            deleteStatement.setInt(1, pizzaId);
+            deleteStatement.setInt(2, customerId);
+            deleteStatement.executeUpdate();
+        }        
+        updateCart();                                
     }
 
     @FXML

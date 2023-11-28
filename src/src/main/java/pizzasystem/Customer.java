@@ -3,6 +3,7 @@ package pizzasystem;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -127,51 +128,41 @@ public class Customer
         }
     }
 
-    public static  void removeFromCart(CartItem item) throws SQLException
+    public static String addCustomPizza(double price, String description) throws SQLException
     {
-        String query = "SELECT quantity FROM ordertable WHERE pizzaId = ?";
-        String sqlDelete = "DELETE FROM ordertable WHERE pizzaId = ?";
-        String sqlUpdate = "UPDATE ordertable SET quantity = ? WHERE pizzaId = ? ";
-        String sqlSelect = "SELECT pizzaId FROM pizza WHERE Name = ?";
-        PreparedStatement quantity = App.getConnector().prepareStatement(query);
-        PreparedStatement pStmnt = App.getConnector().prepareStatement(sqlDelete);
-        PreparedStatement pStmnt2 = App.getConnector().prepareStatement(sqlUpdate);
-        PreparedStatement pStmnt3 = App.getConnector().prepareStatement(sqlSelect);
-        pStmnt3.setString(1, item.getItem());
-        ResultSet rs2 = pStmnt3.executeQuery();
-        rs2.next();
-        int pizzaId = rs2.getInt("pizzaId");
-        quantity.setInt(1, pizzaId);
-        ResultSet rs3 = quantity.executeQuery();
-        rs3.next();
-        int num = rs3.getInt("quantity");
-        if(num > 1)
+        String pizzaStmnt = "INSERT INTO pizza (Price, Name, Description) VALUES (?, ?, ?)";
+        String stmnt = "INSERT INTO pizzadbsystem.ordertable (customerId, pizzaId, quantity) VALUES (?, ?, ?)";
+        String query = "SELECT pizzaId FROM pizza WHERE Description = ?";
+        if(App.getCustomer() != null)
         {
-            pStmnt2.setInt(1, num-1);
-            pStmnt2.setInt(2, pizzaId);
-            pStmnt2.executeUpdate();
+            PreparedStatement pStmt3 =  App.getConnector().prepareStatement(query);
+            PreparedStatement pStmnt = App.getConnector().prepareStatement(pizzaStmnt);
+            PreparedStatement pStmnt2 = App.getConnector().prepareStatement(stmnt);
+            pStmnt.setDouble(1, price);
+            pStmnt.setString(2, "Custom Pizza");
+            pStmnt.setString(3, description);
+            pStmnt.executeUpdate();
+            pStmt3.setString(1, description);
+            ResultSet rs = pStmt3.executeQuery();
+            if(rs.next())
+            {
+                int pizzaId = rs.getInt("pizzaId");
+                pStmnt2.setInt(1, App.getCustomer().getIndex());
+                pStmnt2.setInt(2, pizzaId);
+                pStmnt2.setInt(3, 1);
+                cartItems.add(new CartItem("Custom Pizza", price, 1));
+                pStmnt2.executeUpdate();
+                return "Added to cart!";
+            }
+            else
+            {
+                return "Error occured";
+            }
+
         }
         else
         {
-            pStmnt.setInt(1, pizzaId);  
-            pStmnt.executeUpdate(); 
-        }
-
-    }
-    public static  void removeFromTable(CartItem item)
-    {
-        boolean flag =false;
-        for(int i = 0; i < cartItems.size(); i++)
-        {
-            if(cartItems.get(i).getQuantity() > 1)
-            {
-                flag =true;
-                cartItems.get(i).setQuantity(cartItems.get(i).getQuantity()-1);
-            }
-        }
-        if(!flag)
-        {
-            cartItems.remove(item);
+            return "Please Login or register first.";
         }
     }
 

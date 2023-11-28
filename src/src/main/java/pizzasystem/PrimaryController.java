@@ -1,9 +1,15 @@
 package pizzasystem;
 
 import java.io.IOException;
-import javafx.fxml.FXML;
+import java.sql.SQLException;
 
-public class PrimaryController {
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
+public class PrimaryController 
+{
+    @FXML
+    private Label statusLabel;
    
     @FXML
     private void switchToRegister() throws IOException {            //goes to register page
@@ -17,9 +23,17 @@ public class PrimaryController {
     }
 
     @FXML
-    private void goToCart() throws IOException
+    private void goToCart() throws IOException, SQLException
     {
-        App.setRoot("cart");                //goes to gotocart page
+        if(App.getCustomer() != null)
+        {
+            App.setRoot("cart"); 
+        }
+        else
+        {
+            statusLabel.setText("Please Register or Login!");
+        }
+                       //goes to gotocart page
     }
 
     @FXML

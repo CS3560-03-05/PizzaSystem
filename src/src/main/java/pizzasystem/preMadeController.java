@@ -1,6 +1,7 @@
 package pizzasystem;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,30 +9,31 @@ import javafx.scene.control.Label;
 
 public class preMadeController 
 {
-    private CartService cartService = App.getServiceCart();             //temporary used for testing 
-
     @FXML
     private Label status;                                                                 //make sure customer is not null
     
     @FXML
-    private void orderChickenBbq(ActionEvent event) {
-        CartItem cartItem = new CartItem("ChickenBBQ", "6", 1);                 //Add new entry to order table with App.getCustomer()'s id  and bbqchicken's pizza id
-        cartService.addToCart(cartItem);                                                    //Check if pizza id exist in customer's orders if it just update quanitty
-        status.setText("Added to cart");
+    private void orderChickenBbq(ActionEvent event) throws SQLException 
+    {
+        status.setText(Customer.addToCart(1));
     }
 
     @FXML
-    private void orderHawaiian(ActionEvent event) {
-        // Handle the Hawaiian pizza order here
+    private void orderHawaiian(ActionEvent event) throws SQLException 
+    {
+        status.setText(Customer.addToCart(2));
     }
 
     @FXML
-    private void orderMeatLovers(ActionEvent event) {
-        // Handle the Meat Lovers pizza order here
+    private void orderMeatLovers(ActionEvent event) throws SQLException 
+    {
+        status.setText(Customer.addToCart(0));
     }
 
     @FXML
     private void goBackToHome(ActionEvent event) throws IOException {
          App.setRoot("home");
     }
+
+
 }

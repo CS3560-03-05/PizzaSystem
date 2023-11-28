@@ -1,6 +1,7 @@
 package pizzasystem;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class RegisterController {
 
 
     @FXML
-    private void registerUser(ActionEvent event) {
+    private void registerUser(ActionEvent event) throws SQLException {
 
        
         String firstName = firstNameField.getText();
@@ -34,24 +35,17 @@ public class RegisterController {
         String email = emailField.getText();                        //gets data from fields
         String password = passwordField.getText();
         String message ="";
+        Customer customer = new Customer(firstName, lastName, email, password);
         if(!email.contains("@"))
         {
             message = "Invalid input";          //checks if valid email
         }
-        else if(!App.people.contains(email))
-        {
-            message = "Registration successful:\n"
-                + "First Name: " + firstName + "\n"         //sees if email in db 
-                + "Last Name: " + lastName + "\n"           //create new customer in customer table
-                + "Email: " + email;
-            App.people.add(email);
-            App.passwords.add(password);
-        }
         else
         {
-            message = "You already have an account please login.";
+            message = customer.insertCustomer();
+            App.setCustomer(customer);
         }
-
+            
         // Display a message or perform any other post-registration actions
         statusLabel.setText(message);
     }

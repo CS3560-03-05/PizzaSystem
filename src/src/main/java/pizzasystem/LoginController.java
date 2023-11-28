@@ -1,6 +1,9 @@
 package pizzasystem;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +23,7 @@ public class LoginController
     private Label statusLabel;
 
     @FXML
-    private void loginUser(ActionEvent event) {
+    private void loginUser(ActionEvent event) throws SQLException {
 
        
         String email = emailField.getText();
@@ -30,14 +33,9 @@ public class LoginController
         {
             message = "Invalid input";              //checks for valid email
         }
-        else if(App.people.contains(email) && App.passwords.contains(password))         
-        {
-            message = "Logged in!";                                         //logic is temporary used for testing       //look up email and see if it matches password in db in customer table
-                                                                                                                        //set App.setCustomer to current customer's id(name or email)
-        }
         else
         {
-            message = "Account does not exist please register an account.";             
+            message = login(email, password);
         }
 
         // Display a message or perform any other post-registration actions
@@ -54,6 +52,50 @@ public class LoginController
     private void goToRegister(ActionEvent event) throws IOException
     {
         App.setRoot("register");
+    }
+
+    public String login(String email, String password) throws SQLException
+    {
+        if(checkEmail(email))
+        {
+            String query = "SELECT customerId, FirstName, LastName, Email, Password FROM customer WHERE Email = ? AND Password = ?";
+            PreparedStatement pStmnt = App.getConnector().prepareStatement(query);
+            pStmnt.setString(1, email);
+            pStmnt.setString(2, password);
+            ResultSet rs = pStmnt.executeQuery();
+            if(rs.next())
+            {
+                Customer temp = new Customer(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
+                App.setCustomer(temp);
+                return "Logged in!";
+            }
+            else
+            {
+                return "Incorrect email or password";
+            }
+        }
+        else
+        {
+            return "Email does not exist please register";
+        }
+    }
+
+    private boolean checkEmail(String email) throws SQLException
+    {
+        String query = "SELECT COUNT(*) FROM pizzadbsystem.customer WHERE Email = ?";
+        try(PreparedStatement pStmnt = App.getConnector().prepareStatement(query))
+        {
+            pStmnt.setString(1, email);
+            try(ResultSet rs = pStmnt.executeQuery())
+            {
+                if(rs.next())
+                {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        }
+        return false;
     }
 
 }

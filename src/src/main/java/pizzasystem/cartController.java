@@ -1,6 +1,9 @@
 package pizzasystem;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +20,6 @@ import javafx.scene.control.TableCell;
 
 public class cartController 
 {
-    private CartService cartService = App.getServiceCart();
 
     @FXML
     private TableView<CartItem> cartTable;              //table to display items in cart
@@ -31,7 +33,7 @@ public class cartController
     @FXML
     private TableColumn<CartItem, Void> removeColumn;               //column in cartable for remove button
 
-    public void initialize() {
+    public void initialize() throws SQLException {
            removeColumn.setCellFactory(column -> {
                 return new TableCell<CartItem, Void>() {
                     private final Button removeButton = new Button("Remove");                   //puts a Remove button in each row of the remove column
@@ -39,7 +41,12 @@ public class cartController
                     {
                         removeButton.setOnAction(event -> {
                             CartItem item = getTableView().getItems().get(getIndex());          //action to be done when pressed
-                            removeItemFromCart(item);
+                            try {
+                                removeItemFromCart(item);
+                            } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
                         });
                     }
             
@@ -72,9 +79,23 @@ public class cartController
     }
 
     @FXML
-    public void updateCart() 
-    {                                                                                             //make ObservableArray here
-        cartTable.setItems(cartService.getCartItems());             //set items of cart         (iterate rows of order table where App.getCustomer matches customerid in table. Create new cartitem for each row and add cartitem to obserbable array  )
+    public void updateCart() throws SQLException 
+    {                                            
+        cartTable.getItems().clear();    
+        String stmnt = "SELECT ordertable.pizzaId, ordertable.quantity, pizza.price, pizza.Name " +"FROM ordertable " +"JOIN pizza ON ordertable.pizzaId = pizza.pizzaId " +"WHERE ordertable.customerId = ?";
+        int index = App.getCustomer().getIndex();
+        PreparedStatement pStmnt = App.getConnector().prepareStatement(stmnt);
+        pStmnt.setInt(1, index);
+        ResultSet rs = pStmnt.executeQuery();
+        while(rs.next())
+        {
+            String pizza = rs.getString("Name");
+            int quantity = rs.getInt("quantity");
+            float price = rs.getFloat("Price");
+
+            CartItem cartItem = new CartItem(pizza, price, quantity);
+            cartTable.getItems().add(cartItem);
+        }
     }
     
 
@@ -104,14 +125,15 @@ public class cartController
 
         for(CartItem item : cartTable.getItems())               //total money
         {
-            total+= Double.parseDouble(item.getPrice().substring(0)) * (item.getQuantity());
+            total+= (item.getPrice()) * (item.getQuantity());
         }
 
         return total;
     }
 
-    private void removeItemFromCart(CartItem item) {
-        cartService.removeFromCart(item);                                   //remove item in the cart   
+    private void removeItemFromCart(CartItem item) throws SQLException {
+        Customer.removeFromCart(item);                                   //remove item in the cart  
+        Customer.removeFromTable(item); 
         updateCart();                                                   // check if quantity is >1 then just update quantity. Also, get the order using the index remove from database.
         initialize();                                                       
     }

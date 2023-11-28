@@ -1,11 +1,14 @@
 package pizzasystem;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class CartItem           //temporary class for testing remove this class with the proper one
 {
     private String item;
-    private String price;
+    private float price;
     private int quantity;
-    public CartItem(String item, String price, int quantity) {
+    public CartItem(String item, float price, int quantity) {
         this.item = item;
         this.price = price;
         this.quantity = quantity;
@@ -15,7 +18,7 @@ public class CartItem           //temporary class for testing remove this class 
         return item;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -27,4 +30,6 @@ public class CartItem           //temporary class for testing remove this class 
     {
         this.quantity = str;
     }
+
+
 }

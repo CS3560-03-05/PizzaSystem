@@ -9,7 +9,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="pizzasystem.confirmController">
-    <Label text="Order Placed! Pickup will be ready around 20 minutes!" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label fx:id="confirmationLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
     <ListView fx:id="orderListView"/>
     <Button text="Go to Home" onAction="#goBackToHome"/>
 </VBox>

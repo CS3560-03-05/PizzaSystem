@@ -1,7 +1,6 @@
 package pizzasystem;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 
 public class CartItem           //temporary class for testing remove this class with the proper one
 {

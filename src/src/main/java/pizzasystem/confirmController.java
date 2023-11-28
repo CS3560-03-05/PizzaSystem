@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 public class confirmController 
 {
+
     @FXML
     private Label confirmationLabel;
 
@@ -27,20 +28,25 @@ public class confirmController
     private void populateOrders() throws SQLException
     {
         ObservableList<String> orders = FXCollections.observableArrayList();
-        String orderQuery = "SELECT o.quantity, p.pizzaId, p.description " +"FROM ordertable o " +"JOIN pizza p ON o.pizzaId = p.pizzaId " +"WHERE o.customerId = ?";
+        String orderQuery = "SELECT o.idorderTable, o.quantity, p.pizzaId, p.description " +"FROM ordertable o " +"JOIN pizza p ON o.pizzaId = p.pizzaId " +"WHERE o.customerId = ?";
         PreparedStatement pOrder = App.getConnector().prepareStatement(orderQuery);
         pOrder.setInt(1, App.getCustomer().getIndex());
         ResultSet rs = pOrder.executeQuery();
+        int index = 0;
         while (rs.next()) 
         {
+            int orderId = rs.getInt("idorderTable");
             int quantity = rs.getInt("quantity");
+            index+=quantity;
             int pizzaId = rs.getInt("pizzaId");
             String name = Pizza.getPizzaName(pizzaId);
             String description = getDescriptionFromPizzaTable(pizzaId);
 
             String order = String.format("%s - %s - Quantity: %d", name, description, quantity);
             orders.add(order);
+            deleteOrder(orderId);
         }
+        confirmationLabel.setText("Order Placed! Your order will be avaliable for pick up in "+(+index*5+20)+ " minutes");
         orderListView.setItems(orders);
     }
 
@@ -55,6 +61,15 @@ public class confirmController
                     return rs.getString("Description");
                 }
         return ""; 
+    }
+
+    private void deleteOrder(int orderId) throws SQLException 
+    {
+        String deleteOrderQuery = "DELETE FROM ordertable WHERE idorderTable = ?";
+
+        PreparedStatement deleteOrderStatement = App.getConnector().prepareStatement(deleteOrderQuery);
+        deleteOrderStatement.setInt(1, orderId);
+        deleteOrderStatement.executeUpdate();
     }
 
     @FXML

@@ -68,54 +68,70 @@ public class buildController
         boolean hasBPepper = bPepperCheckBox.isSelected();
 
         String pizzaDesc = "";
-        if(hasPepperoni)
+        if(App.getCustomer() != null )
         {
-            pizzaDesc+= "Pepperoni, ";
-        }
-        if(hasMushrooms)
-        {
-            pizzaDesc+="Mushrooms, ";
-        }
-        if(hasOlives)
-        {
-            pizzaDesc+="Olives, ";
-        }
-        if(hasSausage)
-        {
-            pizzaDesc+="Sausage, ";
-        }
-        if(hasBacon)
-        {
-            pizzaDesc+="Bacon, ";
-        }
-        if(hasBPepper)
-        {
-            pizzaDesc+="Bellpepper, ";
-        }
-        pizzaDesc += selectedCrust+", ";
-        pizzaDesc  += selectedSize;
-        double price = 0;
-        if(selectedSize.equals("Small"))
-        {
-            price = 9.00;
-        }
-        else if(selectedSize.equals("Medium"))
-        {
-            price = 11.00;
-        }
-        else if(selectedSize.equals("Large"))
-        {
-            price = 12.50;
-        }
-        if(price >0 )
-        {
-            Customer.addCustomPizza(price, pizzaDesc);
-            statusLabel.setText("Added to Cart!");
+            if(hasPepperoni)
+            {
+                pizzaDesc+= "Pepperoni, ";
+            }
+            if(hasMushrooms)
+            {
+                pizzaDesc+="Mushrooms, ";
+            }
+            if(hasOlives)
+            {
+                pizzaDesc+="Olives, ";
+            }
+            if(hasSausage)
+            {
+                pizzaDesc+="Sausage, ";
+            }
+            if(hasBacon)
+            {
+                pizzaDesc+="Bacon, ";
+            }
+            if(hasBPepper)
+            {
+                pizzaDesc+="Bellpepper, ";
+            }
+            if(selectedCrust != null && selectedSize != null && pizzaDesc !="")
+            {
+                pizzaDesc += selectedCrust+", ";
+                pizzaDesc  += selectedSize;
+                double price = 0;
+                if(selectedSize.equals("Small"))
+                {
+                    price = 9.00;
+                }
+                else if(selectedSize.equals("Medium"))
+                {
+                    price = 11.00;
+                }
+                else if(selectedSize.equals("Large"))
+                {
+                    price = 12.50;
+                }
+                if(price >0 )
+                {
+                    Customer.addCustomPizza(price, pizzaDesc);
+                    statusLabel.setText("Added to Cart!");
+                }
+                else
+                {
+                    statusLabel.setText("Invalid Pizza");
+                }
+            }
+            else
+            {
+                statusLabel.setText("Invalid Pizza");
+            }
+ 
         }
         else
         {
-            statusLabel.setText("Invalid Pizza");
+            statusLabel.setText("Please Login or Register");
         }
+       
     }
 
     @FXML

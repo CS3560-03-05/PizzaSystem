@@ -96,6 +96,7 @@ public class cartController
             CartItem cartItem = new CartItem(pizza, price, quantity);
             cartTable.getItems().add(cartItem);
         }
+        totalLabel.setText("$"+calculateTotal());                       
     }
     
 

@@ -87,14 +87,15 @@ public class Customer
     public static String addToCart(int pizzaId) throws SQLException
     {
         String stmnt = "INSERT INTO pizzadbsystem.ordertable (customerId, pizzaId, quantity) VALUES (?, ?, ?)";
-        String query = "SELECT quantity FROM ordertable WHERE pizzaId = ?";
-        String sqlUpdate = "UPDATE ordertable SET quantity = ? WHERE pizzaId = ?";
+        String query = "SELECT quantity FROM ordertable WHERE pizzaId = ? AND customerId = ?";
+        String sqlUpdate = "UPDATE ordertable SET quantity = ? WHERE pizzaId = ? AND customerId = ?";
         if(App.getCustomer() != null)
         {
             PreparedStatement pStmnt2 = App.getConnector().prepareStatement(query);
             PreparedStatement ptStmnt = App.getConnector().prepareStatement(stmnt);
             PreparedStatement ptStmnt3 = App.getConnector().prepareStatement(sqlUpdate);
             pStmnt2.setInt(1, pizzaId);
+            pStmnt2.setInt(2, App.getCustomer().getIndex());
             ResultSet rs = pStmnt2.executeQuery();
             int orderQuantity = 0;
             if(rs.next())
@@ -108,6 +109,7 @@ public class Customer
                 }
                 ptStmnt3.setInt(1, rs.getInt("quantity")+1);
                 ptStmnt3.setInt(2, pizzaId);
+                ptStmnt3.setInt(3, App.getCustomer().getIndex());
                 ptStmnt3.executeUpdate();
                 orderQuantity = rs.getInt("quantity")+1;
             }
@@ -139,7 +141,7 @@ public class Customer
             PreparedStatement pStmnt = App.getConnector().prepareStatement(pizzaStmnt);
             PreparedStatement pStmnt2 = App.getConnector().prepareStatement(stmnt);
             pStmnt.setDouble(1, price);
-            pStmnt.setString(2, "Custom Pizza");
+            pStmnt.setString(2, App.getCustomer().getName()+"'s "+"Custom Pizza");
             pStmnt.setString(3, description);
             pStmnt.executeUpdate();
             pStmt3.setString(1, description);
@@ -179,5 +181,10 @@ public class Customer
     public  String getPassword()
     {
         return password;
+    }
+
+    public String getName()
+    {
+        return fName;
     }
 }

@@ -142,7 +142,7 @@ public class cartController
         PreparedStatement quantity = App.getConnector().prepareStatement(query);
 
         int pizzaId = Pizza.getPizzaId(item.getItem());
-        int customerId = App.getCustomer().getIndex(); // Assuming getIndex() returns the customer ID
+        int customerId = App.getCustomer().getIndex(); 
         quantity.setInt(1, pizzaId);
         quantity.setInt(2, customerId);
         ResultSet qrs = quantity.executeQuery();
